@@ -10,7 +10,7 @@ var itemSchema = new Schema({
     make: { type: String },
     model: { type: String },
     miles: { type: Number },
-    price: { type: Number, min: 0, required: true },
+    price: { type: Number, min: 0 },
     dealer_id: { type: String }
 });
 
