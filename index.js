@@ -38,8 +38,8 @@ app.use('/showall', function (req, res) {
             res.send('Error: ' + err);     // res.send() terminates request
         }
         else {
-            for (var i = 0; i < foundItems.length; i++) {
-                res.write("<p>" + foundItems[i].name + " $" + foundItems[i].cost + "</p>");
+            for (let foundItem of foundItems) {
+                res.write("<p>" + foundItem.cid + foundItem.year + foundItem.model + foundItem.miles + foundItem.price + foundItem.dealer_id + "</p>");
             }
             res.end();   // terminate request   
         }
