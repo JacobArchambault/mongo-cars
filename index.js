@@ -39,7 +39,7 @@ app.use('/showall', function (req, res) {
         }
         else {
             for (let foundItem of foundItems) {
-                res.write("<p>" + foundItem.cid + foundItem.year + foundItem.model + foundItem.miles + foundItem.price + foundItem.dealer_id + "</p>");
+                res.write("<p>" + " " + foundItem.cid + " " + foundItem.year + " " + foundItem.model + " " + foundItem.miles + " " + foundItem.price + " " + foundItem.dealer_id + " " + "</p>");
             }
             res.end();   // terminate request   
         }
