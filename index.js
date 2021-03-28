@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 
-var Item = require('./modules/Item.js');  // our Item model
+var Item = require('./modules/Cars.js');  // our Item model
 
 app.get('/', function (req, res) {  // you can only add this data once 
     var allItems = [
