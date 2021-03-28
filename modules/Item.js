@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/makewaves');  // db name
+mongoose.connect('mongodb://localhost:27017/cars4sale');  // db name
 
 var Schema = mongoose.Schema;
 
