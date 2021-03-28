@@ -1,8 +1,12 @@
-/*   database: makewaves    Create, Retrieve,    */
+/*   database: cars4sale    Create, Retrieve,    */
 var express = require('express');
 var app = express();
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+
 var Item = require('./modules/Cars.js');  // our Item model
+app.use(express.static('public'));
 
 app.get('/', function (req, res) {  // you can only add this data once 
     var cars = [
@@ -49,3 +53,132 @@ app.use('/showall', function (req, res) {
 app.listen(3000, function () {
     console.log('Listening on port 3000, ctrl-c to quit');
 });
+
+
+//
+
+// /*   database: makewaves    Create, Retrieve, Update, Delete  ---  CRUD    */
+
+//  // default route request returns index.html from the public folder
+
+// app.use('/showAll', function(req, res) {   // Retrieve many
+                                             
+//     Item.find( function(err, foundItems) {   // Model.find(), returns foundItems 
+// 		 if (err) {
+// 		     res.status(500).send(err);
+// 		 }
+// 		 else {
+// 			 for(var i = 0; i < foundItems.length; i++) {
+// 				 res.write("<p>" + foundItems[i].name  + " $" + foundItems[i].cost + "</p>");
+// 			 }
+// 			 res.end();   // terminate request   
+// 		 }
+//     });
+// })
+
+// app.post('/addNewItem', function(req, res){    // Create
+// 	var newItem = new Item ({               
+// 		name: req.body.itemName,     
+// 		quantity: req.body.itemQuantity,
+// 		cost: req.body.itemCost,
+// 	});
+
+// 	newItem.save( function(err) { 
+// 		if (err) {
+// 		    res.status(500).send(err);
+// 		}
+// 		else {
+// 		    res.send("Item successfully added.");   
+// 		}
+//    }); 
+// });
+
+
+// app.post('/findItem', function(req, res) {    // Retrieve 1
+	
+// 	var searchName = req.body.itemName
+// 	Item.findOne( {name: searchName}, function(err, foundItem) {  // foundItem holds the document that was found
+// 		if (err) {
+// 		    res.status(500).send(err);
+// 		}
+// 		else if (!foundItem) {
+// 		    res.send('No item with the name of ' + searchName);
+// 		}
+// 		else {
+// 			item = foundItem.name + ", " + foundItem.quantity + ", " + foundItem.cost;
+// 		    res.send(item);  // +
+// 		}
+// 	});
+	
+// });
+
+
+
+// app.post('/updateItem', function(req, res) {   // Update (edit)
+
+//     var updateName = req.body.itemName;
+//     var updateQuantity = req.body.itemQuantity;
+// 	var updateCost = req.body.itemCost;
+    
+//     Item.findOne( {name: updateName}, function(err, item) {  // small i item holds the document to be updated
+// 		if (err) {
+// 		    res.status(500).send(err);
+// 		}
+// 		else if (!item) {
+// 		    res.send('No item with the name of ' + updateName);
+// 		}
+// 		else {
+// 			item.quantity = updateQuantity;
+// 			item.cost = updateCost;
+		
+// 			item.save(function (err) {
+//                 if(err) {
+//                     res.status(500).send(err);
+//                 }
+//             });
+// 		    res.send("Update successful");
+// 	   }
+//     });        
+
+// });
+
+
+// app.post('/deleteItem', function(req, res) {   // Delete
+// 	 var deleteName = req.body.itemName;   
+	 
+// 	 Item.findOneAndRemove({name: deleteName}, function(err, item) { 
+// 		if (err) {
+// 		    res.status(500).send(err);
+// 		}
+// 		else if (!item) {
+// 		    res.send('No item with the name of ' + deleteName);
+// 		}
+// 		else {
+// 		    res.send("Item: " + deleteName + " deleted."); 
+// 		}
+//     });         
+// });
+
+
+// app.get('/addMany', function(req, res) {  // you can only add this data once 
+//     var newtems = [     
+//         {name: "SurfBoard", quantity: 5, cost: 215.25},   // add more items if you want
+//         {name: "Flippers", quantity: 12, cost : 7.35 },
+//         {name: "Diving Mask", quantity: 7, cost : 5.75 },
+//         {name: "Sun Tan Oil", quantity: 15, cost : 3.25 }
+//     ]; 
+
+//     Item.collection.insert(newItems, function (err, docs) {
+//         if (err){ 
+//             res.status(500).send(err);
+//         } 
+// 		else {
+// 		    res.send( "Items were added." ); 						  
+//         }
+//     });
+// });
+
+
+// app.listen(3000,  function() {
+// 	console.log('Listening on port 3000, ctrl-c to quit');
+//     });
