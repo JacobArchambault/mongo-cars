@@ -5,7 +5,7 @@ var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var Item = require('./modules/Cars.js');  // our Item model
+var Cars = require('./modules/Cars.js');  // our Item model
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {  // you can only add this data once 
@@ -21,12 +21,12 @@ app.get('/', function (req, res) {  // you can only add this data once
         { cid: 9, year: 2011, make: "Subaru", model: "Outback", miles: 90909, price: 10000, dealer_id: "XV789" },
     ];
 
-    Item.collection.insert(cars, function (err, docs) {
+    Cars.collection.insert(cars, function (err, docs) {
         if (err) {
             console.log(err);
 
         } else {
-            Item.count({}, function (err, count) {
+            Cars.count({}, function (err, count) {
                 console.log("Number of items:", count);
             })
         }
@@ -36,7 +36,7 @@ app.get('/', function (req, res) {  // you can only add this data once
 
 app.use('/showall', function (req, res) {
 
-    Item.find(function (err, foundItems) {   // Model.find(), returns foundItems 
+    Cars.find(function (err, foundItems) {   // Model.find(), returns foundItems 
         if (err) {
             res.type('html').status(500);
             res.send('Error: ' + err);     // res.send() terminates request
@@ -51,7 +51,7 @@ app.use('/showall', function (req, res) {
 })
 
 app.post('/addCar', function (req, res) {    // Create
-    var newItem = new Item({
+    var newItem = new Cars({
         cid: req.body.cid,
         year: req.body.year,
         make: req.body.make,
@@ -74,7 +74,7 @@ app.post('/addCar', function (req, res) {    // Create
 app.post('/findCar', function(req, res) {    // Retrieve 1
 
 	var cid = req.body.cid
-	Item.findOne( {cid: cid}, function(err, foundItem) {  // foundItem holds the document that was found
+	Cars.findOne( {cid: cid}, function(err, foundItem) {  // foundItem holds the document that was found
 		if (err) {
 		    res.status(500).send(err);
 		}
@@ -95,7 +95,7 @@ app.post('/updateCar', function(req, res) {   // Update (edit)
     var updateMiles = req.body.miles;
 	var updatePrice = req.body.price;
 
-    Item.findOne( {cid: updateCid}, function(err, item) {  // small i item holds the document to be updated
+    Cars.findOne( {cid: updateCid}, function(err, item) {  // small i item holds the document to be updated
 		if (err) {
 		    res.status(500).send(err);
 		}
