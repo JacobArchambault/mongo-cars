@@ -43,7 +43,7 @@ app.use('/showall', function (req, res) {
         }
         else {
             for (let foundItem of foundItems) {
-                res.write("<p>" + " " + foundItem.cid + ": " + foundItem.year + " " + foundItem.make + " " + foundItem.model  + ". " + foundItem.miles + " miles. $" + foundItem.price + ". " + foundItem.dealer_id + "</p>");
+                res.write("<p>" + " " + foundItem.cid + ": " + foundItem.year + " " + foundItem.make + " " + foundItem.model + ". " + foundItem.miles + " miles. $" + foundItem.price + ". " + foundItem.dealer_id + "</p>");
             }
             res.end();   // terminate request   
         }
@@ -71,50 +71,66 @@ app.post('/addCar', function (req, res) {    // Create
     });
 });
 
-app.post('/findCar', function(req, res) {    // Retrieve 1
+app.post('/findCar', function (req, res) {    // Retrieve 1
 
-	var cid = req.body.cid
-	Cars.findOne( {cid: cid}, function(err, foundItem) {  // foundItem holds the document that was found
-		if (err) {
-		    res.status(500).send(err);
-		}
-		else if (!foundItem) {
-		    res.send('No item with the id of ' + cid);
-		}
-		else {
-			item = foundItem.cid + ", " + foundItem.year + ", " + foundItem.make + ", " + foundItem.model+ ", " + foundItem.miles+ ", " + foundItem.price + ", " + foundItem.dealer_id;
-		    res.send(item); 
-		}
-	});
+    var cid = req.body.cid
+    Cars.findOne({ cid: cid }, function (err, foundItem) {  // foundItem holds the document that was found
+        if (err) {
+            res.status(500).send(err);
+        }
+        else if (!foundItem) {
+            res.send('No item with the id of ' + cid);
+        }
+        else {
+            item = foundItem.cid + ", " + foundItem.year + ", " + foundItem.make + ", " + foundItem.model + ", " + foundItem.miles + ", " + foundItem.price + ", " + foundItem.dealer_id;
+            res.send(item);
+        }
+    });
 
 });
 
-app.post('/updateCar', function(req, res) {   // Update (edit)
+app.post('/updateCar', function (req, res) {   // Update (edit)
 
     var updateCid = req.body.cid;
     var updateMiles = req.body.miles;
-	var updatePrice = req.body.price;
+    var updatePrice = req.body.price;
 
-    Cars.findOne( {cid: updateCid}, function(err, item) {  // small i item holds the document to be updated
+    Cars.findOne({ cid: updateCid }, function (err, item) {  // small i item holds the document to be updated
+        if (err) {
+            res.status(500).send(err);
+        }
+        else if (!item) {
+            res.send('No car with the id of ' + updateCid);
+        }
+        else {
+            item.miles = updateMiles;
+            item.price = updatePrice;
+
+            item.save(function (err) {
+                if (err) {
+                    res.status(500).send(err);
+                }
+            });
+            res.send("Update successful");
+        }
+    });
+
+});
+
+app.post('/deleteCar', function(req, res) {   // Delete
+	 var deleteId = req.body.cid;   
+
+	 Cars.findOneAndRemove({cid: deleteId}, function(err, item) { 
 		if (err) {
 		    res.status(500).send(err);
 		}
 		else if (!item) {
-		    res.send('No car with the id of ' + updateCid);
+		    res.send('No item with the name of ' + deleteId);
 		}
 		else {
-			item.miles = updateMiles;
-			item.price = updatePrice;
-
-			item.save(function (err) {
-                if(err) {
-                    res.status(500).send(err);
-                }
-            });
-		    res.send("Update successful");
-	   }
-    });        
-
+		    res.send("Item: " + deleteId + " deleted."); 
+		}
+    });         
 });
 
 
@@ -130,21 +146,6 @@ app.listen(3000, function () {
 
 
 
-// app.post('/deleteItem', function(req, res) {   // Delete
-// 	 var deleteName = req.body.itemName;   
-
-// 	 Item.findOneAndRemove({name: deleteName}, function(err, item) { 
-// 		if (err) {
-// 		    res.status(500).send(err);
-// 		}
-// 		else if (!item) {
-// 		    res.send('No item with the name of ' + deleteName);
-// 		}
-// 		else {
-// 		    res.send("Item: " + deleteName + " deleted."); 
-// 		}
-//     });         
-// });
 
 
 // app.get('/addMany', function(req, res) {  // you can only add this data once 
