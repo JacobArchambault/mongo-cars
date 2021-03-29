@@ -50,31 +50,36 @@ app.use('/showall', function (req, res) {
     });
 })
 
+app.post('/addCar', function (req, res) {    // Create
+    var newItem = new Item({
+        cid: req.body.cid,
+        year: req.body.year,
+        make: req.body.make,
+        model: req.body.model,
+        miles: req.body.miles,
+        price: req.body.price,
+        dealer_id: req.body.dealer_id,
+    });
+
+    newItem.save(function (err) {
+        if (err) {
+            res.status(500).send(err);
+        }
+        else {
+            res.send("Item successfully added.");
+        }
+    });
+});
+
 app.listen(3000, function () {
     console.log('Listening on port 3000, ctrl-c to quit');
 });
 
 
-// app.post('/addNewItem', function(req, res){    // Create
-// 	var newItem = new Item ({               
-// 		name: req.body.itemName,     
-// 		quantity: req.body.itemQuantity,
-// 		cost: req.body.itemCost,
-// 	});
-
-// 	newItem.save( function(err) { 
-// 		if (err) {
-// 		    res.status(500).send(err);
-// 		}
-// 		else {
-// 		    res.send("Item successfully added.");   
-// 		}
-//    }); 
-// });
 
 
 // app.post('/findItem', function(req, res) {    // Retrieve 1
-	
+
 // 	var searchName = req.body.itemName
 // 	Item.findOne( {name: searchName}, function(err, foundItem) {  // foundItem holds the document that was found
 // 		if (err) {
@@ -88,7 +93,7 @@ app.listen(3000, function () {
 // 		    res.send(item);  // +
 // 		}
 // 	});
-	
+
 // });
 
 
@@ -98,7 +103,7 @@ app.listen(3000, function () {
 //     var updateName = req.body.itemName;
 //     var updateQuantity = req.body.itemQuantity;
 // 	var updateCost = req.body.itemCost;
-    
+
 //     Item.findOne( {name: updateName}, function(err, item) {  // small i item holds the document to be updated
 // 		if (err) {
 // 		    res.status(500).send(err);
@@ -109,7 +114,7 @@ app.listen(3000, function () {
 // 		else {
 // 			item.quantity = updateQuantity;
 // 			item.cost = updateCost;
-		
+
 // 			item.save(function (err) {
 //                 if(err) {
 //                     res.status(500).send(err);
@@ -124,7 +129,7 @@ app.listen(3000, function () {
 
 // app.post('/deleteItem', function(req, res) {   // Delete
 // 	 var deleteName = req.body.itemName;   
-	 
+
 // 	 Item.findOneAndRemove({name: deleteName}, function(err, item) { 
 // 		if (err) {
 // 		    res.status(500).send(err);
