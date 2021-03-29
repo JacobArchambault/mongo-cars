@@ -89,6 +89,35 @@ app.post('/findCar', function(req, res) {    // Retrieve 1
 
 });
 
+app.post('/updateCar', function(req, res) {   // Update (edit)
+
+    var updateCid = req.body.cid;
+    var updateMiles = req.body.miles;
+	var updatePrice = req.body.price;
+
+    Item.findOne( {cid: updateCid}, function(err, item) {  // small i item holds the document to be updated
+		if (err) {
+		    res.status(500).send(err);
+		}
+		else if (!item) {
+		    res.send('No car with the id of ' + updateCid);
+		}
+		else {
+			item.miles = updateMiles;
+			item.price = updatePrice;
+
+			item.save(function (err) {
+                if(err) {
+                    res.status(500).send(err);
+                }
+            });
+		    res.send("Update successful");
+	   }
+    });        
+
+});
+
+
 app.listen(3000, function () {
     console.log('Listening on port 3000, ctrl-c to quit');
 });
@@ -99,33 +128,6 @@ app.listen(3000, function () {
 
 
 
-// app.post('/updateItem', function(req, res) {   // Update (edit)
-
-//     var updateName = req.body.itemName;
-//     var updateQuantity = req.body.itemQuantity;
-// 	var updateCost = req.body.itemCost;
-
-//     Item.findOne( {name: updateName}, function(err, item) {  // small i item holds the document to be updated
-// 		if (err) {
-// 		    res.status(500).send(err);
-// 		}
-// 		else if (!item) {
-// 		    res.send('No item with the name of ' + updateName);
-// 		}
-// 		else {
-// 			item.quantity = updateQuantity;
-// 			item.cost = updateCost;
-
-// 			item.save(function (err) {
-//                 if(err) {
-//                     res.status(500).send(err);
-//                 }
-//             });
-// 		    res.send("Update successful");
-// 	   }
-//     });        
-
-// });
 
 
 // app.post('/deleteItem', function(req, res) {   // Delete
