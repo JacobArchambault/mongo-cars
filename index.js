@@ -55,27 +55,6 @@ app.listen(3000, function () {
 });
 
 
-//
-
-// /*   database: makewaves    Create, Retrieve, Update, Delete  ---  CRUD    */
-
-//  // default route request returns index.html from the public folder
-
-// app.use('/showAll', function(req, res) {   // Retrieve many
-                                             
-//     Item.find( function(err, foundItems) {   // Model.find(), returns foundItems 
-// 		 if (err) {
-// 		     res.status(500).send(err);
-// 		 }
-// 		 else {
-// 			 for(var i = 0; i < foundItems.length; i++) {
-// 				 res.write("<p>" + foundItems[i].name  + " $" + foundItems[i].cost + "</p>");
-// 			 }
-// 			 res.end();   // terminate request   
-// 		 }
-//     });
-// })
-
 // app.post('/addNewItem', function(req, res){    // Create
 // 	var newItem = new Item ({               
 // 		name: req.body.itemName,     
