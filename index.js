@@ -71,6 +71,24 @@ app.post('/addCar', function (req, res) {    // Create
     });
 });
 
+app.post('/findCar', function(req, res) {    // Retrieve 1
+
+	var cid = req.body.cid
+	Item.findOne( {cid: cid}, function(err, foundItem) {  // foundItem holds the document that was found
+		if (err) {
+		    res.status(500).send(err);
+		}
+		else if (!foundItem) {
+		    res.send('No item with the id of ' + cid);
+		}
+		else {
+			item = foundItem.cid + ", " + foundItem.year + ", " + foundItem.make + ", " + foundItem.model+ ", " + foundItem.miles+ ", " + foundItem.price + ", " + foundItem.dealer_id;
+		    res.send(item); 
+		}
+	});
+
+});
+
 app.listen(3000, function () {
     console.log('Listening on port 3000, ctrl-c to quit');
 });
@@ -78,23 +96,6 @@ app.listen(3000, function () {
 
 
 
-// app.post('/findItem', function(req, res) {    // Retrieve 1
-
-// 	var searchName = req.body.itemName
-// 	Item.findOne( {name: searchName}, function(err, foundItem) {  // foundItem holds the document that was found
-// 		if (err) {
-// 		    res.status(500).send(err);
-// 		}
-// 		else if (!foundItem) {
-// 		    res.send('No item with the name of ' + searchName);
-// 		}
-// 		else {
-// 			item = foundItem.name + ", " + foundItem.quantity + ", " + foundItem.cost;
-// 		    res.send(item);  // +
-// 		}
-// 	});
-
-// });
 
 
 
