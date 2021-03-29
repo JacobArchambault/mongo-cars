@@ -66,7 +66,7 @@ app.post('/addCar', function (req, res) {    // Create
             res.status(500).send(err);
         }
         else {
-            res.send("Item successfully added.");
+            res.send("Car successfully added.");
         }
     });
 });
