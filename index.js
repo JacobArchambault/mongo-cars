@@ -86,11 +86,7 @@ app.post('/findCar', function (req, res) {    // Retrieve 1
 });
 
 app.post('/updateCar', function (req, res) {   // Update (edit)
-
     var updateCid = req.body.cid;
-    var updateMiles = req.body.miles;
-    var updatePrice = req.body.price;
-
     Cars.findOne({ cid: updateCid }, function (err, item) {  // small i item holds the document to be updated
         if (err) {
             res.status(500).send(err);
@@ -99,8 +95,8 @@ app.post('/updateCar', function (req, res) {   // Update (edit)
             res.send('No car with the id of ' + updateCid);
         }
         else {
-            item.miles = updateMiles;
-            item.price = updatePrice;
+            item.miles = req.body.miles;
+            item.price = req.body.price;
 
             item.save(function (err) {
                 if (err) {
