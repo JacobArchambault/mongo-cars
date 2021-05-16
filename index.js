@@ -49,7 +49,7 @@ app.use('/showall', function (req, res) {
 })
 
 app.post('/addCar', function (req, res) {    // Create
-    var newItem = new Cars({
+    new Cars({
         cid: req.body.cid,
         year: req.body.year,
         make: req.body.make,
@@ -57,9 +57,7 @@ app.post('/addCar', function (req, res) {    // Create
         miles: req.body.miles,
         price: req.body.price,
         dealer_id: req.body.dealer_id,
-    });
-
-    newItem.save(function (err) {
+    }).save(function (err) {
         if (err) {
             res.status(500).send(err);
         }
