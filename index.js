@@ -129,31 +129,3 @@ app.post('/deleteCar', function(req, res) {   // Delete
 app.listen(3000, function () {
     console.log('Listening on port 3000, ctrl-c to quit');
 });
-
-
-
-
-
-
-
-
-
-
-
-// app.get('/addMany', function(req, res) {  // you can only add this data once 
-//     var newtems = [     
-//         {name: "SurfBoard", quantity: 5, cost: 215.25},   // add more items if you want
-//         {name: "Flippers", quantity: 12, cost : 7.35 },
-//         {name: "Diving Mask", quantity: 7, cost : 5.75 },
-//         {name: "Sun Tan Oil", quantity: 15, cost : 3.25 }
-//     ]; 
-
-//     Item.collection.insert(newItems, function (err, docs) {
-//         if (err){ 
-//             res.status(500).send(err);
-//         } 
-// 		else {
-// 		    res.send( "Items were added." ); 						  
-//         }
-//     });
-// });
