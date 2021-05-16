@@ -9,7 +9,7 @@ var Cars = require('./modules/Cars.js');  // our Item model
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {  // you can only add this data once 
-    var cars = [
+    Cars.collection.insertMany([
         { cid: 1, year: 2010, make: "Honda", model: "Civic", miles: 88100, price: 10100, dealer_id: "MH228" },
         { cid: 2, year: 2009, make: "Honda", model: "Accord", miles: 25000, price: 500, dealer_id: "FC324" },
         { cid: 3, year: 1995, make: "Dodge", model: "Ram", miles: 200000, price: 36000, dealer_id: "UH351" },
@@ -19,9 +19,7 @@ app.get('/', function (req, res) {  // you can only add this data once
         { cid: 7, year: 2000, make: "Ford", model: "F150", miles: 23525, price: 50000, dealer_id: "JK985" },
         { cid: 8, year: 2020, make: "Volkswagen", model: "Beetle", miles: 9199, price: 4450, dealer_id: "NV021" },
         { cid: 9, year: 2011, make: "Subaru", model: "Outback", miles: 90909, price: 10000, dealer_id: "XV789" },
-    ];
-
-    Cars.collection.insert(cars, function (err, docs) {
+    ], function (err, docs) {
         if (err) {
             console.log(err);
 
